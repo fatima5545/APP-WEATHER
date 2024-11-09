@@ -20,7 +20,7 @@ async def get_current_weather(location: str) -> dict:
         requests.exceptions.HTTPError: Si une erreur HTTP se produit lors de la requête à l'API weather
         Exception: Pour toute autre erreur lors de la récupération ou du traitement des données
     """
-    url = f"https://api.weatherbit.io/v2.0/current?city={location}&key={settings.WEATHERBIT_API_KEY}"
+    url = f"{settings.WEATHERBIT_API_BASE_URL}current?city={location}&key={settings.WEATHERBIT_API_KEY}"
 
     logger.info(f"Demande de météo actuelle pour la ville : {location}")
     # Vérifier si les données sont déjà dans le cache Redis

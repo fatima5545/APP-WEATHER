@@ -28,7 +28,7 @@ async def get_weather_forecast(location: str) -> dict:
         Exception: Pour toute autre erreur lors de la récupération ou du traitement des données.
     """
 
-    url = f"https://api.weatherbit.io/v2.0/forecast/daily?city={location}&key={settings.WEATHERBIT_API_KEY}"
+    url = f"{settings.WEATHERBIT_API_BASE_URL}forecast/daily?city={location}&key={settings.WEATHERBIT_API_KEY}"
 
     logger.info(f"Demande de prévisions météo pour la ville : {location}")
     # Vérifier le cache Redis
