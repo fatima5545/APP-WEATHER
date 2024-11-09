@@ -99,7 +99,7 @@ Voici comment chaque composant interagit lorsque l’utilisateur fait une requê
 **Pour les météo actuelle du jour :**
 
 <div align="center">
-    <img width="700" alt="image" src="https://github.com/user-attachments/assets/975660ee-dfe8-4cf3-972f-87e055c49ffb">
+    <img width="700" alt="image" src="./docs/images/diagramme_current_weather.png">
 </div>
 
 ### Explications :
@@ -113,7 +113,7 @@ Voici comment chaque composant interagit lorsque l’utilisateur fait une requê
 **Pour les prévisions des 7 jours :**
 
 <div align="center">
-  <img width="700" alt="image" src="https://github.com/user-attachments/assets/163f55e3-7705-4d94-938b-2303b3eeb08f">
+  <img width="700" alt="image" src="./docs/images/diagramme_forecast.png">
 </div>
 
 ### Explications :
