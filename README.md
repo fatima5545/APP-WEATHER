@@ -41,7 +41,7 @@ REDIS_DB=0
 
    ```bash
    git clone https://github.com/fatima5545/WEATHER-APP.git
-   cd votre-repo
+   cd WEATHER-APP
 
    ```
 
