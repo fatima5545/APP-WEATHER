@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    command: uvicorn run:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+      - ./logs:/app/logs # dossier de logs pour récupérer les fichiers
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0 # Base de données Redis principale
+      - WEATHERBIT_API_KEY=${WEATHERBIT_API_KEY}
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
+  tests:
+    build: .
+    command: ["pytest", "tests/"]
+    environment:
+      - PYTHONPATH=/app # Assure que le répertoire /app est dans le PYTHONPATH
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=1 # BD de tests
+      - WEATHERBIT_API_KEY=${WEATHERBIT_API_KEY}
+    depends_on:
+      - redis
+    volumes:
+      - .:/app:delegated
+    # Configuration pour que le service "tests" s'exécute une fois et s'arrête
+    restart: "no"

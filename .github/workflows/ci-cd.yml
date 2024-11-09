@@ -1,0 +1,75 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - main # Run pipeline pour chaque push sur la branche main
+  pull_request:
+    branches:
+      - main # Run pipeline pour chaque PR vers la branche main
+  workflow_dispatch: # Déclencherr manuelement le pipeline depuis l'interface gitHub
+
+jobs:
+  lint-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+
+    env:
+      WEATHERBIT_API_KEY: ${{ secrets.WEATHERBIT_API_KEY }} # Clé API WeatherBit chargée depuis les secrets GitHub
+
+    steps:
+      # Étape 1 : Cloner le repo
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Étape 2 : Configurer l'env Python
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      # Étape 3 : Installer Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      # Étape 4 : Installer les dépendances de formatage de code
+      - name: Install dependencies
+        run: |
+          pip install black
+
+      # Étape 5 : Vérifier la conformité du code avec Black
+      - name: Check with code formatter
+        run: |
+          black --check .
+
+      # Étape 6 : Exécuter les tests
+      - name: Run tests
+        run: |
+          docker-compose up tests
+          docker-compose down
+
+  # Job de déploiement : seulement si les tests réussissent
+  deploy:
+    name: Deploy to Docker Hub
+    runs-on: ubuntu-latest
+    needs: lint-test
+
+    steps:
+      # Étape 1 : Cloner le repo
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Étape 2 : Connexion à Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Étape 3 : Construire et pousser l'image Docker sur Docker Hub
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/weather-app:latest . 
+          docker push ${{ secrets.DOCKER_USERNAME }}/weather-app:latest

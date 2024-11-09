@@ -1,0 +1,44 @@
+# Environnements virtuels
+venv/
+.env/
+__pycache__/
+
+# Fichiers de configuration de vscode
+.vscode/
+
+# Fichiers de logs
+*.log
+
+# Configurations locales et secrets
+.env
+*.env
+
+# Fichiers de cache
+*.cache
+*.pyc
+*.pyo
+
+# Sorties de test
+htmlcov/
+.coverage
+*.cover
+coverage.xml
+.cache
+pytest_cache/
+
+# Fichiers générés par pip
+pip-wheel-metadata/
+pip-log.txt
+
+# Fichiers générés par Docker
+.dockerignore
+docker-compose.override.yml
+
+# Dossiers spécifiques à GitHub Actions
+.github/workflows/*.log
+
+# Sorties d'analyse de code
+.mypy_cache/
+.pytest_cache/
+.pytype/
+pylint-report.txt
