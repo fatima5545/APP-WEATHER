@@ -1,20 +1,27 @@
+# Sommaire
+
 - [Introduction](#introduction)
+- [Prérequis et Installation](#prérequis-et-installation)
+  - [Prérequis](#prérequis)
+  - [Configuration de l'environnement](#configuration-de-lenvironnement)
+  - [Étapes d'installation](#étapes-dinstallation)
 - [Fonctionnement global](#fonctionnement-global)
+  - [Endpoint `/weather/current`](#endpoint-weathercurrent)
+  - [Endpoint `/weather/forecast`](#endpoint-weatherforecast)
+    - [Indicateurs Météorologiques utilisés pour l'évolution](#indicateurs-météorologiques-utilisés-pour-lévolution)
+    - [Explication de la Logique de l'évolution générale](#explication-de-la-logique-de-lévolution-générale)
 - [Technologies Principales](#technologies-principales)
 - [Architecture de l'Application](#architecture-de-lapplication)
   - [Structure du Projet](#structure-du-projet)
-  - [Diagramme de Séquence des Appels API](#diagramme-de-séquence-des-appels-api)
+  - [Diagrammes de Séquence des Appels API](#diagrammes-de-séquence-des-appels-api)
     - [Pour les météo actuelle du jour](#pour-les-météo-actuelle-du-jour)
     - [Pour les prévisions des 7 jours](#pour-les-prévisions-des-7-jours)
-- [Prérequis et Installation](#prérequis-et-installation)
-  - [Prérequis](#prérequis)
-  - [Étapes d'installation](#étapes-dinstallation)
 - [Surveillance et Gestion des Quotas](#surveillance-et-gestion-des-quotas)
 - [Tests unitaires et End-to-End](#tests-unitaires-et-end-to-end)
-- [Couverture de Tests](#couverture-de-tests)
-- [CI/CD et Déploiement](#cicd-et-déploiement)
+- [CI/CD](#cicd)
   - [Pipeline CI/CD](#pipeline-cicd)
 - [Améliorations Futures](#améliorations-futures)
+
 
 # Introduction
 
