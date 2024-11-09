@@ -14,9 +14,6 @@ jobs:
     name: Lint and Test
     runs-on: ubuntu-latest
 
-    env:
-      WEATHERBIT_API_KEY: ${{ secrets.WEATHERBIT_API_KEY }} # Clé API WeatherBit chargée depuis les secrets GitHub
-
     steps:
       # Étape 1 : Cloner le repo
       - name: Checkout code
