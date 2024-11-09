@@ -1,12 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, PositiveFloat
 from typing import List
 
 
 class DailyForecast(BaseModel):
     date: str  # La date de la prévision
-    temperature: float  # Température pour la journée en °C
-    pressure: float  # Pression en hPa
-    wind_speed: float  # Vitesse du vent en km/h
+    temperature: PositiveFloat  # Température pour la journée en °C
+    pressure: PositiveFloat  # Pression en hPa
+    wind_speed: PositiveFloat  # Vitesse du vent en km/h
 
 
 class WeatherForecastResponse(BaseModel):
