@@ -19,7 +19,40 @@
 # Introduction
 
 L'application est une API de prévisions météo qui permet aux utilisateurs de récupérer les informations météorologiques actuelles et les prévisions à 7 jours pour une ville donnée. Elle est conçue pour fournir des données claires et accessibles sur la météo, y compris une description concise de la météo, la température, la vitesse du vent, l'humidité, ainsi que des tendances sur la température et la pression.
+## Prérequis et Installation
 
+### Prérequis
+
+- **Docker** et **Docker Compose** : Assurez-vous d’avoir Docker et Docker Compose installés.
+
+### Configuration de l'environnement
+
+Avant de lancer l'application en local, vous devez créer un fichier `.env` dans le répertoire racine du projet avec le contenu suivant :
+
+```bash
+WEATHERBIT_API_KEY=VotreCleAPIIci
+REDIS_HOST=redis
+REDIS_PORT=6379
+REDIS_DB=0
+```
+### Étapes d'installation
+
+1. Clonez le dépôt :
+
+   ```bash
+   git clone https://github.com/fatima5545/WEATHER-APP.git
+   cd votre-repo
+
+   ```
+
+2. Lancez l'application avec Docker Compose : :
+
+   ```bash
+   docker-compose up --build
+
+   ```
+
+3. Accédez à la documentation Swagger : Ouvrez [le Swagger](http://localhost:8000/docs) pour voir les endpoints et tester l'API.
 ## Fonctionnement global
 
 L'application fonctionne en tant qu'API backend qui expose deux endpoints principaux :
@@ -124,30 +157,7 @@ Voici comment chaque composant interagit lorsque l’utilisateur fait une requê
 - **WeatherBit :** Si le quota n'est pas dépassé, l'API fait un appel externe à WeatherBit pour récupérer les données et les met en cache.
 - **Gestion du Quota :** Si le quota est dépassé, une erreur est retournée à l'utilisateur.
 
-## Prérequis et Installation
 
-### Prérequis
-
-- **Docker** et **Docker Compose** : Assurez-vous d’avoir Docker et Docker Compose installés.
-
-### Étapes d'installation
-
-1. Clonez le dépôt :
-
-   ```bash
-   git clone https://github.com/fatima5545/WEATHER-APP.git
-   cd votre-repo
-
-   ```
-
-2. Lancez l'application avec Docker Compose : :
-
-   ```bash
-   docker-compose up --build
-
-   ```
-
-3. Accédez à la documentation Swagger : Ouvrez [le Swagger](http://localhost:8000/docs) pour voir les endpoints et tester l'API.
 
 ## Surveillance et Gestion des Quotas
 
