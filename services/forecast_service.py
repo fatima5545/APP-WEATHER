@@ -1,11 +1,6 @@
 import requests
 from settings.configuration import settings
-from adapters.cache_redis import (
-    get_from_cache,
-    set_cache,
-    can_make_api_call,
-    increment_api_call_count,
-)
+from adapters.cache_redis import redis_cache
 from settings.logging_config import logger
 from utils.utils import calculate_trend, categorize_wind_speed, evaluate_weather_trend
 
@@ -37,13 +32,13 @@ async def get_weather_forecast(location: str) -> dict:
 
     logger.info(f"Demande de prévisions météo pour la ville : {location}")
     # Vérifier le cache Redis
-    cached_data = get_from_cache(location, "forecast")
+    cached_data = redis_cache.get_from_cache(location, "forecast")
     if cached_data:
         logger.info(f"Cache utilisé pour les prévisions de la ville {location}")
         return cached_data
 
     # Vérifier si le quota d'appels à l'API WeatherBit est disponible
-    if not can_make_api_call():
+    if not redis_cache.can_make_api_call():
         logger.warning(
             f"Quota d'appels API atteint pour aujourd'hui. Requête pour {location} non effectuée."
         )
@@ -105,10 +100,10 @@ async def get_weather_forecast(location: str) -> dict:
             ],
         }
         # Incrémenter le compteur
-        increment_api_call_count()
+        redis_cache.increment_api_call_count()
 
         # Stocker dans Redis avec un TTL de 24 heures (86400 secondes)
-        set_cache(location, data_final, "forecast", ttl=86400)
+        redis_cache.set_cache(location, data_final, "forecast", ttl=86400)
         logger.info(
             f"API appelée pour les prévisions de la ville {location} et résultat stocké dans le cache"
         )

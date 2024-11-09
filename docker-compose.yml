@@ -25,7 +25,6 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_DB=1 # BD de tests
-      - WEATHERBIT_API_KEY=${WEATHERBIT_API_KEY}
     depends_on:
       - redis
     volumes:

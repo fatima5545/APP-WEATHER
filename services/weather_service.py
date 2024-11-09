@@ -1,11 +1,6 @@
 import requests
 from settings.configuration import settings
-from adapters.cache_redis import (
-    get_from_cache,
-    set_cache,
-    can_make_api_call,
-    increment_api_call_count,
-)
+from adapters.cache_redis import redis_cache
 from settings.logging_config import logger
 
 
@@ -29,13 +24,13 @@ async def get_current_weather(location: str) -> dict:
 
     logger.info(f"Demande de météo actuelle pour la ville : {location}")
     # Vérifier si les données sont déjà dans le cache Redis
-    cached_data = get_from_cache(location, "current_weather")
+    cached_data = redis_cache.get_from_cache(location, "current_weather")
     if cached_data:
         logger.info(f"Cache utilisé pour la météo de {location}")
         return cached_data
 
     # Vérifier si le quota d'appels à l'API WeatherBit est disponible
-    if not can_make_api_call():
+    if not redis_cache.can_make_api_call():
         logger.warning(
             f"Quota d'appels API atteint pour aujourd'hui. Requête pour {location} non effectuée."
         )
@@ -55,9 +50,9 @@ async def get_current_weather(location: str) -> dict:
             "humidity": data["data"][0]["rh"],
         }
         # Incrémenter le compteur seulement après un appel réussi
-        increment_api_call_count()
+        redis_cache.increment_api_call_count()
 
-        set_cache(
+        redis_cache.set_cache(
             location, weather_data, "current_weather", ttl=3600
         )  # Expiration de 1 heure
         logger.info(
