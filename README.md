@@ -28,11 +28,11 @@
 L'application est une API de prévisions météo qui permet aux utilisateurs de récupérer les informations météorologiques actuelles et les prévisions à 7 jours pour une ville donnée. Elle est conçue pour fournir des données claires et accessibles sur la météo, y compris une description concise de la météo, la température, la vitesse du vent, l'humidité, ainsi que des tendances sur la température et la pression.
 ## Prérequis et Installation
 
-### Prérequis
+### Prérequis ⚠️
 
 - **Docker** et **Docker Compose** : Assurez-vous d’avoir Docker et Docker Compose installés.
 
-### Configuration de l'environnement
+### Configuration de l'environnement ⚠️
 
 Avant de lancer l'application en local, vous devez créer un fichier `.env` dans le répertoire racine du projet avec le contenu suivant :
 
@@ -42,7 +42,7 @@ REDIS_HOST=redis
 REDIS_PORT=6379
 REDIS_DB=0
 ```
-### Étapes d'installation
+### Étapes d'installation ⚠️
 
 1. Clonez le dépôt :
 
